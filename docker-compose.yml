@@ -1,0 +1,96 @@
+version: "3.7"
+
+x-clickhouse-defaults: &clickhouse-defaults
+  restart: unless-stopped
+  image: clickhouse/clickhouse-server:latest
+  logging:
+    driver: "json-file"
+    options:
+        max-size: "20m"
+        max-file: "5"
+  networks:
+    - datalake-net
+  ulimits:
+    nproc: 65535
+    nofile:
+      soft: 262144
+      hard: 262144
+
+services:
+  clickhouse-blue-1:
+    <<: *clickhouse-defaults
+    container_name: clickhouse-blue-1
+    hostname: clickhouse-blue-1
+    ports:
+      - 9900:9000
+      - 8123:8123
+      - 9181:9181
+    volumes:
+      - type: volume
+        source: ch-blue-1-data0
+        target: /var/lib/clickhouse
+      - "./topo/clickhouse-blue-1/config.d:/etc/clickhouse-server/config.d/"
+      - "./topo/clickhouse-blue-1/users.d:/etc/clickhouse-server/users.d/"
+      - "./dict:/data/dwh/dict"
+      # - "./force_restore_data:/var/lib/clickhouse/flags/force_restore_data"
+
+  clickhouse-blue-2:
+    <<: *clickhouse-defaults
+    container_name: clickhouse-blue-2
+    hostname: clickhouse-blue-2
+    ports:
+      - 9901:9000
+      - 8124:8123
+      - 9182:9181
+    volumes:
+      - type: volume
+        source: ch-blue-2-data
+        target: /var/lib/clickhouse
+      - "./topo/clickhouse-blue-2/config.d:/etc/clickhouse-server/config.d/"
+      - "./topo/clickhouse-blue-2/users.d:/etc/clickhouse-server/users.d/"
+      - "./dict:/data/dwh/dict"
+      # - "./force_restore_data:/var/lib/clickhouse/flags/force_restore_data"
+
+  clickhouse-green-1:
+    <<: *clickhouse-defaults
+    container_name: clickhouse-green-1
+    hostname: clickhouse-green-1
+    ports:
+      - 9902:9000
+      - 8125:8123
+      - 9183:9181
+    volumes:
+      - type: volume
+        source: ch-green-1-data
+        target: /var/lib/clickhouse
+      - "./topo/clickhouse-green-1/config.d:/etc/clickhouse-server/config.d/"
+      - "./topo/clickhouse-green-1/users.d:/etc/clickhouse-server/users.d/"
+      - "./dict:/data/dwh/dict"
+      # - "./force_restore_data:/var/lib/clickhouse/flags/force_restore_data"
+
+  clickhouse-green-2:
+    <<: *clickhouse-defaults
+    container_name: clickhouse-green-2
+    hostname: clickhouse-green-2
+    ports:
+      - 9903:9000
+      - 8126:8123
+      - 9184:9181
+    volumes:
+      - type: volume
+        source: ch-green-2-data
+        target: /var/lib/clickhouse
+      - "./topo/clickhouse-green-2/config.d:/etc/clickhouse-server/config.d/"
+      - "./topo/clickhouse-green-2/users.d:/etc/clickhouse-server/users.d/"
+      - "./dict:/data/dwh/dict"
+      # - "./force_restore_data:/var/lib/clickhouse/flags/force_restore_data"
+
+networks:
+  datalake-net:
+    external: true
+
+volumes:
+  ch-blue-1-data0:
+  ch-blue-2-data:
+  ch-green-1-data:
+  ch-green-2-data:

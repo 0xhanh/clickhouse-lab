@@ -1,0 +1,9 @@
+<clickhouse>
+  <profiles>
+     <default>
+        <max_threads>12</max_threads>
+        <max_insert_threads>8</max_insert_threads> 
+        <input_format_parallel_parsing>0</input_format_parallel_parsing>
+     </default>
+   </profiles>
+</clickhouse>

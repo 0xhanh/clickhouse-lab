@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<clickhouse>
+    <query_log replace="1">
+        <database>system</database>
+        <table>query_log</table>
+        <engine>ENGINE = MergeTree PARTITION BY (event_date)
+                ORDER BY (event_time)
+                TTL event_date + INTERVAL 14 DAY DELETE
+        </engine>
+        <flush_interval_milliseconds>7500</flush_interval_milliseconds>
+    </query_log>
+    <query_views_log replace="1">
+        <database>system</database>
+        <table>query_views_log</table>
+        <engine>ENGINE = MergeTree PARTITION BY (event_date)
+                ORDER BY (event_time)
+                TTL event_date + INTERVAL 14 DAY DELETE
+        </engine>
+        <flush_interval_milliseconds>7500</flush_interval_milliseconds>
+    </query_views_log>
+    <query_thread_log replace="1">
+        <database>system</database>
+        <table>query_thread_log</table>
+        <engine>ENGINE = MergeTree PARTITION BY (event_date)
+                ORDER BY (event_time)
+                TTL event_date + INTERVAL 14 DAY DELETE
+        </engine>
+        <flush_interval_milliseconds>7500</flush_interval_milliseconds>
+    </query_thread_log>
+</clickhouse>

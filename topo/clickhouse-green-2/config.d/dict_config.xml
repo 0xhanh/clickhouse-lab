@@ -1,0 +1,7 @@
+<clickhouse>
+    <!-- Configuration of external dictionaries. See:
+         https://clickhouse.tech/docs/en/sql-reference/dictionaries/external-dictionaries/external-dicts
+    -->
+    <!-- <dictionaries_config>*_dictionary.xml</dictionaries_config> -->
+    <dictionaries_config>/data/dwh/dict/*_dict.xml</dictionaries_config>
+</clickhouse>

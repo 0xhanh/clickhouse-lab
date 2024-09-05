@@ -1,0 +1,6 @@
+<clickhouse>
+   <!-- when max_server_memory_usage is set max_server_memory_usage_to_ram_ratio is ignored-->
+   <max_server_memory_usage>0</max_server_memory_usage>
+   <!-- 4 instance on the single server, so ratio=0.2 -> 0.2*4 = 0.8 -->
+   <max_server_memory_usage_to_ram_ratio>0.2</max_server_memory_usage_to_ram_ratio>
+</clickhouse>

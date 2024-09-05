@@ -1,0 +1,9 @@
+<clickhouse>
+    <named_collections>
+        <deltalake_conf>
+            <url>http://192.168.51.166:9090/warehouse</url>
+            <access_key_id>data</access_key_id>
+            <secret_access_key>data@123</secret_access_key>
+        </deltalake_conf>
+    </named_collections>
+</clickhouse>

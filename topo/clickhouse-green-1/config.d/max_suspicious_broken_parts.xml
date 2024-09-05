@@ -1,0 +1,5 @@
+<clickhouse>
+    <merge_tree>
+        <max_suspicious_broken_parts>50</max_suspicious_broken_parts>
+    </merge_tree>
+</clickhouse>
